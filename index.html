@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vinicountdowntimer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/08/06080627/pexels-photo-TIME-677x1024.jpeg">
+</head>
+<body>
+    <div class="countdown">
+        <h2>ENTER TIME BELOW</h2>
+        <div class="cdtimer" id="cdtimer">
+            <input type="number" placeholder="hrs" id="hrs" autocomplete="off" value="">:
+            <input type="number" placeholder="mins" id="mins" autocomplete="off" value="">:
+            <input type="number" placeholder="secs" id="secs" autocomplete="off" value="">
+        </div>
+
+
+        <div class="buttons">
+            <i class="fa fa-stop" aria-hidden="true" id="stop" style="font-size: 70px;
+                 color: red;"></i>
+            <i class="fa fa-play-circle" id="start" aria-hidden="true" style="font-size: 100px;
+                color: green;"></i>
+            <i class="fa fa-refresh" id="reset" aria-hidden="true" style="font-size: 70px;
+                color: orange;"></i>
+            
+        </div>
+    
+    </div>
+
+    <script>
+
+        const hours = document.getElementById('hrs');
+        const minutes = document.getElementById('mins');
+        const seconds = document.getElementById('secs');
+
+        const start = document.getElementById('start');
+        const reset= document.getElementById('reset');
+        const stop =document.getElementById('stop');
+
+        const disp= document.getElementById('cdtimer');
+
+        let period = null;
+        let total = 0;
+        totalvalue = ()=>{
+            total = Number(hours.value)*3600 + Number(minutes.value)*60 +Number(seconds.value);
+        }
+
+        cdstart = ()=>{
+            totalvalue();
+            total--;
+            if(total >= 0){
+
+                let h = Math.floor(total/3600);
+                let m = Math.floor((total/60 ) - (h*60));
+                let s = total -((h*3600) + (m*60));
+
+                hours.value = h;
+                minutes.value = m;
+                seconds.value = s;
+            }
+            
+        }
+
+        stop.addEventListener('click' ,()=>{
+            clearInterval(period);
+            period = null;
+
+        });
+
+        start.addEventListener('click' ,()=>{
+            clearInterval(period);
+            period = setInterval(cdstart, 1000)
+            
+
+        });
+
+        reset.addEventListener('click' ,()=>{
+                clearInterval(period);
+                hours.value = 0;
+                minutes.value = 0;
+                seconds.value = 0;
+        });
+
+
+
+    </script>
+</body>
+</html>
